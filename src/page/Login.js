@@ -3,8 +3,6 @@ import { Container, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
-
-
 import "../style/login.style.css";
 
 const Login = () => {
@@ -13,7 +11,7 @@ const Login = () => {
   const { user, error, loading } = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(loading)
+
   const loginWithEmail = (event) => {
     event.preventDefault();
     //이메일,패스워드를 가지고 백엔드로 보내기
@@ -24,9 +22,17 @@ const Login = () => {
     // 구글로 로그인 하기
   };
 
-  if (user) {
-    navigate("/");
-  }
+  // if (user) {
+  //   navigate("/");
+  // }
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  
   useEffect(()=>{
     return ()=>{
       dispatch(userActions.deleteError());

@@ -11,10 +11,7 @@ import { commonUiActions } from "../action/commonUiAction";
 const AppLayout = ({ children }) => {
   const location = useLocation();
   const dispatch = useDispatch();
-  // const user = { level: "admin" };
-  const user = null;
-
-  // const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   useEffect(() => {
     dispatch(userActions.loginWithToken());
   }, []);
