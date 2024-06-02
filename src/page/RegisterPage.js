@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -16,7 +16,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState("");
   const [policyError, setPolicyError] = useState(false);
-  const error = useSelector((state) => state.user.error);
+  const { error,loading }  = useSelector((state) => state.user);
 
   const register = (event) => {
     event.preventDefault();
@@ -52,8 +52,22 @@ const RegisterPage = () => {
 
   };
 
+  useEffect(()=>{
+    return ()=>{
+      dispatch(userActions.deleteError());
+    }
+  },
+  [])
+
   return (
     <Container className="register-area">
+      {loading && (
+        <div>
+          <Alert variant="danger" className="loading-message">
+            loading...
+          </Alert>
+        </div>
+      )}
       {error && (
         <div>
           <Alert variant="danger" className="error-message">

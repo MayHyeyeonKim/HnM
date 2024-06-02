@@ -12,7 +12,7 @@ const loginWithEmail = ({email, password}) => async (dispatch) => {
     sessionStorage.setItem("token", response.data.token);
     dispatch({type: types.LOGIN_SUCCESS, payload: response.data});
   }catch(error){
-    dispatch({type:types.LOGIN_FAIL,payload:error.error})
+    dispatch({type:types.LOGIN_FAIL,payload:error.message})
   }
 };
 const logout = () => async (dispatch) => {};
@@ -23,20 +23,27 @@ const registerUser =
   ({ email, name, password }, Navigate) =>
   async (dispatch) => {
     try{
-      dispatch({type: types.GOOGLE_LOGIN_REQUEST})
+      dispatch({type: types.REGISTER_USER_REQUEST})
       const Response = await api.post("/user", {email, name, password});
-      if(Response.status !== 200) throw new Error(Response.data.error);
-      dispatch({type:types.REGISTER_USER_SUCCESS})
+      if(Response.status !== 200) throw new Error(Response.error);
+      dispatch({type:types.REGISTER_USER_SUCCESS, payload: Response.data})
       dispatch(commonUiActions.showToastMessage("Registration completed successfully.", "success"));
       Navigate("/login");
     }catch(error){
       dispatch({type:types.REGISTER_USER_FAIL,payload:error.error});
     }
   };
+
+const deleteError = ()=> async(dispatch)=>{
+  dispatch({type: types.DELETE_ERROR})
+};
+
+
 export const userActions = {
   loginWithToken,
   loginWithEmail,
   logout,
   loginWithGoogle,
   registerUser,
+  deleteError,
 };
