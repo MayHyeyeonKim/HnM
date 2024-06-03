@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Form, Modal, Button, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
-import { productActions } from "../action/productAction";
-import { CATEGORY, STATUS, SIZE } from "../constants/product.constants";
-import "../style/adminProduct.style.css";
-import * as types from "../constants/product.constants";
-import { commonUiActions } from "../action/commonUiAction";
+import React, { useState, useEffect } from 'react';
+import { Form, Modal, Button, Row, Col } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import CloudinaryUploadWidget from '../utils/CloudinaryUploadWidget';
+import { productActions } from '../action/productAction';
+import { CATEGORY, STATUS, SIZE } from '../constants/product.constants';
+import '../style/adminProduct.style.css';
+import * as types from '../constants/product.constants';
+import { commonUiActions } from '../action/commonUiAction';
+import { Cloudinary } from '@cloudinary/url-gen';
+
+const CLOUDINARY_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 const InitialFormData = {
   name: "",
@@ -27,6 +31,23 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stock, setStock] = useState([]);
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
+
+  const [cloudName] = useState(CLOUDINARY_CLOUD_NAME);
+  const [uploadPreset] = useState(CLOUDINARY_PRESET);
+
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset,
+  });
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName,
+    },
+  });
+
+console.log("stock", stock);
+
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
@@ -46,22 +67,33 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleChange = (event) => {
     //form에 데이터 넣어주기
+    const {id, value} = event.target;
+    setFormData({...formData, [id]:value });
   };
 
   const addStock = () => {
     //재고타입 추가시 배열에 새 배열 추가
+    setStock([...stock, []]);
   };
 
   const deleteStock = (idx) => {
     //재고 삭제하기
+    const newStock = stock.filter((item,index)=> index !==idx)
+    setStock(newStock);
   };
 
   const handleSizeChange = (value, index) => {
     //  재고 사이즈 변환하기
+    const newStock = [...stock];
+    newStock[index][0] = value;
+    setStock(newStock);
   };
 
   const handleStockChange = (value, index) => {
     //재고 수량 변환하기
+    const newStock = [...stock];
+    newStock[index][1] = value;
+    setStock(newStock);
   };
 
   const onHandleCategory = (event) => {
