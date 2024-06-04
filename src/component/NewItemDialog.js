@@ -56,10 +56,34 @@ console.log("stock", stock);
   const handleSubmit = (event) => {
     event.preventDefault();
     //재고를 입력했는지 확인, 아니면 에러
+    // console.log("formdata어떻게 생겼어? ", formData);
+    // console.log("formdata의 스톡 ", stock);
+
     // 재고를 배열에서 객체로 바꿔주기
     // [['M',2]] 에서 {M:2}로
+    // [["s", "3"], ["m", 4]] -> {s : 3, m : 4} array를 객체로
+
+    // 이미지 필드가 비어 있는지 확인
+    // if (!formData.image) {
+    //   alert("이미지를 업로드해주세요.");
+    //   return;
+    // }
+
+    if (stock.length == 0) return setStockError(true);
+    const totalStock = stock.reduce((total, item) =>{
+      return {...total, [item[0]]:parseInt(item[1])}
+    },{})
+    // console.log("formdata의 total: ", totalStock)
+
     if (mode === "new") {
       //새 상품 만들기
+      dispatch(productActions.createProduct({ ...formData, stock: totalStock }));
+      const newFormData = { ...InitialFormData };
+      setFormData({ ...InitialFormData });
+      setStock([]);
+      // setFormData(newFormData);
+      // setStock([]);
+      setShowDialog(false);
     } else {
       // 상품 수정하기
     }
@@ -97,6 +121,7 @@ console.log("stock", stock);
   };
 
   const onHandleCategory = (event) => {
+    // 카테고리가 이미 추가되어 있으면 제거
     if (formData.category.includes(event.target.value)) {
       const newCategory = formData.category.filter(
         (item) => item !== event.target.value
@@ -105,6 +130,7 @@ console.log("stock", stock);
         ...formData,
         category: [...newCategory],
       });
+      // 아니면 새로 추가
     } else {
       setFormData({
         ...formData,
@@ -114,7 +140,7 @@ console.log("stock", stock);
   };
 
   const uploadImage = (url) => {
-    //이미지 업로드
+    setFormData({ ...formData, image: url });
   };
 
   useEffect(() => {
@@ -240,7 +266,7 @@ console.log("stock", stock);
 
         <Form.Group className="mb-3" controlId="Image" required>
           <Form.Label>Image</Form.Label>
-          <CloudinaryUploadWidget uploadImage={uploadImage} />
+          <CloudinaryUploadWidget uploadImage={uploadImage}/>
 
           <img
             id="uploadedimage"
