@@ -28,6 +28,7 @@ const createProduct = (formData) => async (dispatch) => {
     const response = await api.post("/product", formData)
     if(response.status !== 200) throw new Error(response.error);
     dispatch({type:types.PRODUCT_CREATE_SUCCESS})
+    dispatch(getProductList({ page: 1, name: "" }));
     dispatch(commonUiActions.showToastMessage("completed product creation", "success"));
 
   }catch(error){
