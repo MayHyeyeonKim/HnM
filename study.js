@@ -30,7 +30,7 @@ const rrr = (id)=>{
     react_filter = new_filter
 }
 rrr(2)
-console.log("react_filter: ", react_filter)
+// console.log("react_filter: ", react_filter)
 
 // console.log("ppp0:", ppp0)
 // console.log("new_filter: ", new_filter)

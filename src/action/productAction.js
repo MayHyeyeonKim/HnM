@@ -5,12 +5,16 @@ import { commonUiActions } from "./commonUiAction";
 
 const getProductList = (query) => async (dispatch) => {
   try {
-    console.log("여기는 productAction/getProductList")
+    // console.log("여기는 productAction/getProductList1")
     dispatch({ type: types.PRODUCT_GET_REQUEST });
-    const response = await api.get("/product",{params:{...query}});
+    // console.log("여기는 productAction/getProductList2")
+    // const response = await api.get("/product",{params:{...query}});
+    const response = await api.get("/product",
+            { params: { ...query } }
+        );
+    // console.log("productAction에서 리스폰스: ", response);
     if(response.status !==200) throw new Error(response.data.data)
     dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data});
-    console.log("리스폰스", response.data.data);
   } catch (error) {
     dispatch({ type: types.PRODUCT_GET_FAIL, payload: error.message });
   }

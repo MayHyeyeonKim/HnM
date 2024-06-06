@@ -6,7 +6,7 @@ import { useState } from "react";
 const ProductTable = ({ header, data, openEditForm }) => { //deleteItem,
   const [productlist, setProductlist] = useState([])
   // console.log("data", data)
-  console.log("productlist", productlist) //[]
+  // console.log("productlist", productlist) //[]
   useEffect(()=>{
     if(data)
       setProductlist(data)

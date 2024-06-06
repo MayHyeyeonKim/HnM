@@ -12,7 +12,7 @@ import ProductTable from "../component/ProductTable";
 
 const AdminProduct = () => {
   const navigate = useNavigate();
-  const { productList } = useSelector((state) => state.product);
+  const { productList, totalPageNum } = useSelector((state) => state.product);
   const [query, setQuery] = useSearchParams();
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
@@ -43,10 +43,10 @@ const AdminProduct = () => {
     if(searchQuery.name === ""){
       delete searchQuery.name
     }
-    console.log("searchQuery: ", searchQuery)
+    // console.log("searchQuery: ", searchQuery)
     const params = new URLSearchParams(searchQuery)
     const query = params.toString();
-    console.log("query: ", query)
+    // console.log("query: ", query)
     navigate("?"+query)
   }, [searchQuery]);
 
@@ -68,6 +68,8 @@ const AdminProduct = () => {
 
   const handlePageClick = ({ selected }) => {
     //  쿼리에 페이지값 바꿔주기
+    // console.log("selected: ", selected)
+    setSearchQuery({...searchQuery, page: selected+1})
   };
 
   return (
@@ -95,8 +97,8 @@ const AdminProduct = () => {
           nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
-          pageCount={100}
-          forcePage={2} // 1페이지면 2임 여긴 한개씩 +1 해야함
+          pageCount={totalPageNum}
+          forcePage={searchQuery.page - 1} // 1페이지면 2임 여긴 한개씩 +1 해야함
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
@@ -108,9 +110,10 @@ const AdminProduct = () => {
           breakLabel="..."
           breakClassName="page-item"
           breakLinkClassName="page-link"
-          containerClassName="pagination"
+          // containerClassName="pagination"
+          containerClassName='pagination display-center list-style-none'
           activeClassName="active"
-          className="display-center list-style-none"
+          // className="display-center list-style-none" //className에서주면 css 우선순위가 className 이 가져가서 적용이 안 됨
         />
       </Container>
 

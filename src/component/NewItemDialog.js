@@ -46,7 +46,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     },
   });
 
-console.log("stock", stock);
+// console.log("stock", stock);
 
   const handleClose = () => {
     //모든걸 초기화시키고;
