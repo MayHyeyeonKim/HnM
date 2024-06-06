@@ -39,7 +39,7 @@ const RegisterPage = () => {
   };
 
   const handleChange = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     // event.target.values
     const { id, value, checked } = event.target
     // console.log("handleChange: ", id, value, checked);
@@ -48,8 +48,6 @@ const RegisterPage = () => {
     } else{
       setFormData({...formData, [id]:value});
     }
-
-
   };
 
   useEffect(()=>{

@@ -7,7 +7,7 @@ const getProductList = (query) => async (dispatch) => {
   try {
     console.log("여기는 productAction/getProductList")
     dispatch({ type: types.PRODUCT_GET_REQUEST });
-    const response = await api.get("/product");
+    const response = await api.get("/product",{params:{...query}});
     if(response.status !==200) throw new Error(response.data.data)
     dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data});
     console.log("리스폰스", response.data.data);
