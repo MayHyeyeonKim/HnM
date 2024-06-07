@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
+import * as types from "../constants/product.constants";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
@@ -32,8 +33,13 @@ const Navbar = ({ user }) => {
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
+        dispatch({ type: types.SET_SEARCH_KEYWORD, payload: "" });
         return navigate("/");
       }
+
+      let searchKeyword = event.target.value;
+      dispatch({ type: types.SET_SEARCH_KEYWORD, payload: searchKeyword });
+      console.log("서치워드", searchKeyword);
       navigate(`?name=${event.target.value}`);
     }
   };
@@ -140,7 +146,7 @@ const Navbar = ({ user }) => {
             <FontAwesomeIcon icon={faSearch} />
             <input
               type="text"
-              placeholder="제품검색"
+              placeholder="search"
               onKeyPress={onCheckEnter}
             />
           </div>

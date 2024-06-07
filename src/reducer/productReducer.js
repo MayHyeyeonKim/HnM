@@ -19,6 +19,11 @@ function productReducer(state = initialState, action) {
     case types.PRODUCT_CREATE_FAIL:
     case types.PRODUCT_GET_FAIL:
       return { ...state, loading: false, error: payload };
+    case types.SET_SELECTED_PRODUCT:
+    case types.GET_PRODUCT_DETAIL_SUCCESS:
+      return { ...state, loading: false, selectedProduct: payload };
+    case types.SET_SEARCH_KEYWORD:
+      return { ...state, searchKeyword: payload };
     default:
       return state;
   }
