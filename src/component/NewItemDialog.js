@@ -23,7 +23,7 @@ const InitialFormData = {
   price: 0,
 };
 const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
-  const {selectedProduct} = useSelector((state) => state.product);
+  const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const { error } = useSelector((state) => state.product);
   const [formData, setFormData] = useState(
     mode === "new" ? { ...InitialFormData } : selectedProduct
@@ -47,6 +47,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   });
 
 // console.log("stock", stock);
+
 
   const handleClose = () => {
     //모든걸 초기화시키고;

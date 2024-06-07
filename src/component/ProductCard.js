@@ -4,20 +4,17 @@ import { currencyFormat } from "../utils/number";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
-
-  const showProduct = ({id}) => {
-    // 상품 디테일 페이지로 가기
+  const showProduct = (id) => {
+    console.log("id:", id); // id를 함수 내부에서 로그로 확인
     navigate(`/product/${id}`);
   };
 
-
-
   return (
-    <div className='card' onClick={() => showProduct(product._id)}>
-			<img src={product.image} alt='' />
-			<div>{product.name}</div>
-			<div>$ {product.price}</div>
-		</div>
+    <div className="card" onClick={() => showProduct(product._id)}>
+      <img src={product.image} alt={product.name} />
+      <div>{product.name}</div>
+      <div>{currencyFormat(product.price)}</div>
+    </div>
   );
 };
 
