@@ -5,14 +5,11 @@ import { commonUiActions } from "./commonUiAction";
 
 const getProductList = (query) => async (dispatch) => {
   try {
-    // console.log("여기는 productAction/getProductList1")
     dispatch({ type: types.PRODUCT_GET_REQUEST });
-    // console.log("여기는 productAction/getProductList2")
     const response = await api.get("/product",
             { params: { ...query } }
         );
     console.log("productAction에서 리스폰스: ", response);
-    // if(response.status !==200) throw new Error(response.data.data)
     dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data});
   } catch (error) {
     dispatch({ type: types.PRODUCT_GET_FAIL, payload: error.message });
@@ -49,7 +46,20 @@ const deleteProduct = (id) => async (dispatch) => {
   }
 };
 
-const editProduct = (formData, id) => async (dispatch) => {};
+const editProduct = (formData, id) => async (dispatch) => {
+  try{
+    dispatch({type: types.PRODUCT_EDIT_REQUEST});
+    const response = await api.put(`/product/${id}`, formData);
+    if(response.status === 200){
+      dispatch({type: types.PRODUCT_EDIT_SUCCESS, payload: response.data.data});
+      dispatch(getProductList({ page: 1, name: "" }));
+      dispatch(commonUiActions.showToastMessage("The product has been updated", "success"));
+    }
+  }catch(error){
+    dispatch({type:types.PRODUCT_EDIT_FAIL, payload:error.message})
+    dispatch(commonUiActions.showToastMessage(error.message, "error"));
+  }
+};
 
 export const productActions = {
   getProductList,

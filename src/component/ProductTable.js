@@ -5,23 +5,10 @@ import { currencyFormat } from "../utils/number";
 import { useState } from "react";
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
   const [productlist, setProductlist] = useState([])
-  // console.log("data", data)
-  // console.log("productlist", productlist) //[]
   useEffect(()=>{
     if(data)
       setProductlist(data)
   },[data])
-  // const deleteItem = (id) => {
-  //   //아이템 삭제하기 item._id
-  //   let deleted_product_list = []
-  //   deleted_product_list = data.filter((product)=>{
-  //     if(product._id == id){
-  //       return
-  //     }
-  //     return product
-  //   })
-  //   setProductlist(deleted_product_list)
-  // };
   return (
     <div className="overflow-x">
       <Table striped bordered hover>
