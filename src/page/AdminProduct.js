@@ -52,7 +52,8 @@ const AdminProduct = () => {
   }, [searchQuery]);
 
   const deleteItem = (id) => {
-    //아이템 삭제하가ㅣ
+    //아이템 삭제하기
+    dispatch(productActions.deleteProduct(id));
   };
 
   const openEditForm = (product) => {
@@ -97,8 +98,8 @@ const AdminProduct = () => {
         <ReactPaginate
           nextLabel="next >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={totalPageNum}
+          pageRangeDisplayed={3} //한 페이지에 몇개
+          pageCount={totalPageNum} //전체 몇 페이지?
           forcePage={searchQuery.page - 1} // 1페이지면 2임 여긴 한개씩 +1 해야함
           previousLabel="< previous"
           renderOnZeroPageCount={null}
