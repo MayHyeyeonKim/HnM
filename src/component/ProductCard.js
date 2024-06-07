@@ -11,11 +11,12 @@ const ProductCard = ({ product }) => {
   };
 
 
+
   return (
     <div className='card' onClick={() => showProduct(product._id)}>
 			<img src={product.image} alt='' />
 			<div>{product.name}</div>
-			<div>{product.price}</div>
+			<div>$ {product.price}</div>
 		</div>
   );
 };

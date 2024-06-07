@@ -46,15 +46,34 @@ const ProductAll = () => {
           (<div className='loading' > <ClipLoader color="#FB6D33" loading={loading} size={100} /></div>)
           :
           (
+            // <Container>
+            //   <Row>
+            //     {productList?.map((product, index) =>
+            //       <Col key={product._id} className="card" md={3} sm={12}>
+            //         <ProductCard product={product} />
+            //       </Col>
+            //     )}
+            //   </Row>
+            // </Container>
             <Container>
-              <Row>
-                {productList?.map((product, index) =>
-                  <Col key={product._id} className="card" md={3} sm={12}>
+            <Row>
+              {productList.length > 0 ? (
+                productList.map((product, index) => (
+                  <Col md={3} sm={12} key={product._id}>
                     <ProductCard product={product} />
                   </Col>
-                )}
-              </Row>
-            </Container>
+                ))
+              ) : (
+                <div className="text-align-center empty-bag">
+                  {name === "" ? (
+                    <h2>등록된 상품이 없습니다!</h2>
+                  ) : (
+                    <h2>{name}과 일치한 상품이 없습니다!`</h2>
+                  )}
+                </div>
+              )}
+            </Row>
+          </Container>
           )
       }
     </>

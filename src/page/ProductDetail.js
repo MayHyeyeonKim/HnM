@@ -11,11 +11,13 @@ import "../style/productDetail.style.css";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
+  const selectedProduct = useSelector((state) => state.product.selectedProduct);
+  const loading = useSelector((state) => state.product.loading);
+  const error = useSelector((state) => state.product.error);
 
   const [size, setSize] = useState("");
   const { id } = useParams();
   const [sizeError, setSizeError] = useState(false);
-
   const navigate = useNavigate();
 
   const addItemToCart = () => {
@@ -33,6 +35,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     //상품 디테일 정보 가져오기
+    dispatch(productActions.getProductDetail(id));
   }, [id]);
 
   return (
