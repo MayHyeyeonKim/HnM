@@ -46,15 +46,6 @@ const ProductAll = () => {
           (<div className='loading' > <ClipLoader color="#FB6D33" loading={loading} size={100} /></div>)
           :
           (
-            // <Container>
-            //   <Row>
-            //     {productList?.map((product, index) =>
-            //       <Col key={product._id} className="card" md={3} sm={12}>
-            //         <ProductCard product={product} />
-            //       </Col>
-            //     )}
-            //   </Row>
-            // </Container>
             <Container>
             <Row>
               {productList.length > 0 ? (

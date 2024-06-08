@@ -13,6 +13,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 const ProductDetail = () => {
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state)=> state.user)
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const loading = useSelector((state) => state.product.loading);
   const error = useSelector((state) => state.product.error);
@@ -23,16 +24,26 @@ const ProductDetail = () => {
   const navigate = useNavigate();
 
   const pickIsTrue = () => {
-    return selectedProduct.choice ? true : false
-  }
+    return selectedProduct.choice ? true : false;
+  };
 
   const addItemToCart = () => {
     //사이즈를 아직 선택안했다면 에러
+    if(size ===""){
+      setSizeError(true)
+      return;
+    }
     // 아직 로그인을 안한유저라면 로그인페이지로
+    if(!user) { navigate('/login') }
     // 카트에 아이템 추가하기
+    dispatch(cartActions.addToCart({id, size}))
+    dispatch(cartActions.getCartQty())
   };
   const selectSize = (value) => {
     // 사이즈 추가하기
+    // console.log("value는?: ", value);
+    setSize(value);
+    if(sizeError) setSizeError(false);
   };
 
   //카트에러가 있으면 에러메세지 보여주기
@@ -45,33 +56,42 @@ const ProductDetail = () => {
   }, [id]);
 
   if (loading || !selectedProduct) {
-    return (<div className='loading' > <ClipLoader color="#FB6D33" loading={loading} size={100} /></div>);
-  }
-  else {
+    return (
+      <div className="loading">
+        {" "}
+        <ClipLoader color="#FB6D33" loading={loading} size={100} />
+      </div>
+    );
+  } else {
     return (
       <Container className="product-detail-card">
         <Row>
           <Col sm={6}>
-            <img
-              src={selectedProduct.image}
-              className="w-100"
-              alt="image"
-            />
+            <img src={selectedProduct.image} className="w-100" alt="image" />
           </Col>
           <Col className="product-info-area" sm={6}>
-            <div className='detail-product-description'>{selectedProduct.description}</div>
+            <div className="detail-product-description">
+              {selectedProduct.description}
+            </div>
             <br />
-            <div className='detail-product-name'>{selectedProduct.name}<h className='detail-product-new'>{selectedProduct.isNew == true ? "NEW" : ""}</h></div>
+            <div className="detail-product-name">
+              {selectedProduct.name}
+              <h className="detail-product-new">
+                {selectedProduct.isNew == true ? "NEW" : ""}
+              </h>
+            </div>
             <br />
-            <div className='detail-product-price'><h> ${currencyFormat(selectedProduct.price)} </h></div>
-            <div className='detail-line' />
+            <div className="detail-product-price">
+              <h> ${currencyFormat(selectedProduct.price)} </h>
+            </div>
+            <div className="detail-line" />
 
             <Dropdown
               variant="none"
               className="drop-down size-drop-down"
               title={size}
               align="start"
-              onSelect={(value) => selectSize(value)}
+              onSelect={(eventKey) => selectSize(eventKey)}
             >
               <Dropdown.Toggle
                 className="size-drop-down"
@@ -79,17 +99,23 @@ const ProductDetail = () => {
                 id="dropdown-basic"
                 align="start"
               >
-                {size === "" ? "옵션 선택" : size.toUpperCase()}
+                {size ? size.toUpperCase() : "사이즈 선택"}
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="size-drop-down">
-                {Object.keys(selectedProduct.stock).map((size) => [size, selectedProduct.stock[size]]).map((item, index) => (
-                  item[1] > 0 ?
-                    (<Dropdown.Item className="size-drop-down-abled">{item[0]}</Dropdown.Item>)
-                    :
-                    (<Dropdown.Item className="size-drop-down-disabled" disabled>{item[0]}</Dropdown.Item>)
-                ))}
-              </Dropdown.Menu>
+              { selectedProduct && Object.keys(selectedProduct?.stock).length > 0 &&
+                Object.keys(selectedProduct?.stock).map((sz, i) =>
+                  selectedProduct?.stock[sz] > 0 ? (
+                    <Dropdown.Item key={i} eventKey={sz}>
+                      {sz.toUpperCase()}
+                    </Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item key={i} eventKey={sz} disabled={true}>
+                      {sz.toUpperCase()}
+                    </Dropdown.Item>
+                  )
+                )}
+            </Dropdown.Menu>
             </Dropdown>
             <div className="warning-message">
               {sizeError && "사이즈를 선택해주세요."}
@@ -102,7 +128,6 @@ const ProductDetail = () => {
       </Container>
     );
   }
-
 };
 
 export default ProductDetail;
