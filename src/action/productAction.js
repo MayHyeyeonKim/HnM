@@ -63,9 +63,7 @@ const deleteProduct = (id) => async (dispatch) => {
     dispatch({ type: types.PRODUCT_DELETE_REQUEST });
     const response = await api.delete(`/product/${id}`);
     if (response.status !== 200) throw new Error(response.error);
-    dispatch({
-      type: types.PRODUCT_DELETE_SUCCESS,
-    });
+    dispatch({type: types.PRODUCT_DELETE_SUCCESS});
     dispatch(commonUiActions.showToastMessage("The product has been deleted", "success"));
     dispatch(getProductList({ page: 1 }));
   } catch (error) {

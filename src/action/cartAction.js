@@ -11,6 +11,7 @@ const addToCart =
       const response = await api.post("/cart", {productId:id, size:size, qty:1})
       console.log("r",response)
       if(response.status !==200)throw new Error(response.error);
+      // dispatch({type:types.ADD_TO_CART_SUCCESS, payload: response.data});
       dispatch({type:types.ADD_TO_CART_SUCCESS, payload: response.data.cartItemQty,});
       dispatch(commonUiActions.showToastMessage("Item has been added to the cart.","success"))
     }catch(error){

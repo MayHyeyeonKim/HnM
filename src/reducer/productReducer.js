@@ -5,7 +5,7 @@ const initialState = {
   productList: [],
   totalPageNum: 1,
   searchKeyword: "",
-  selectedProduct: null
+  selectedProduct: null,
 };
 
 function productReducer(state = initialState, action) {
