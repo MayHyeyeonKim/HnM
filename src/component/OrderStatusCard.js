@@ -7,6 +7,7 @@ const OrderStatusCard = ({ orderItem }) => {
   if (!orderItem) {
     return <div>Error: Order item is undefined</div>;
   }
+  const productName = orderItem.items[0]?.productId?.name ?? "Unknown Product";
   return (
     <div>
     <Row className="status-card">
@@ -26,7 +27,8 @@ const OrderStatusCard = ({ orderItem }) => {
         <div className="text-12">{orderItem.updatedAt ? orderItem.updatedAt.slice(0, 10) : "N/A"}</div>
 
         <div>
-          {orderItem.items[0].productId.name}
+          {productName}
+          {/* {orderItem.items[0].productId.name} */}
           {orderItem.items.length > 1 && `and ${orderItem.items.length - 1} more items`}
         </div>
         <div>₩ {currencyFormat(orderItem.totalPrice)}</div>
