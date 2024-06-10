@@ -52,7 +52,7 @@ const Navbar = ({ user }) => {
               <FontAwesomeIcon className="search-icon" icon={faSearch} />
               <input
                 type="text"
-                placeholder="제품검색"
+                placeholder="Search Products"
                 onKeyPress={onCheckEnter}
               />
             </div>
@@ -89,13 +89,17 @@ const Navbar = ({ user }) => {
         <div>
           <div className="display-flex">
             {user ? (
+              <>
+              <div className="nav-icon welcome-message">
+              Welcome, {user.name}!
+            </div>
               <div onClick={logout} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
                 {!isMobile && (
                   <span style={{ cursor: "pointer" }}>Logout</span>
                 )}
               </div>
-            ) : (
+              </>) : (
               <div onClick={() => navigate("/login")} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
                 {!isMobile && <span style={{ cursor: "pointer" }}>Login</span>}

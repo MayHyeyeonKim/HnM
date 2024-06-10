@@ -11,9 +11,15 @@ body{
   
 }
 
+.welcome-message {
+  margin-right: 20px;
+  padding-right: 10px;
+  color: rgb(89, 85, 85);
+  font-weight: bold;
+}
+
 .nav-header .nav-icon {
   margin-right: 20px;
- 
 }
 .nav-icon span{
   margin-left: 10px;
