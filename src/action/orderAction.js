@@ -60,7 +60,7 @@ const updateOrder = (id, status) => async (dispatch) => {
     });
 
     dispatch(
-      commonUiActions.showToastMessage("오더 업데이트 완료!", "success")
+      commonUiActions.showToastMessage("Order Update Completed!", "success")
     );
 
     dispatch(getOrderList());

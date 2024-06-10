@@ -66,7 +66,7 @@ const AdminOrderPage = () => {
           <SearchBox
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            placeholder="오더번호"
+            placeholder="Order Number"
             field="ordernum"
           />
         </div>
@@ -79,9 +79,9 @@ const AdminOrderPage = () => {
         <ReactPaginate
           nextLabel="next >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={totalPageNum}
-          forcePage={searchQuery.page - 1}
+          pageRangeDisplayed={3} 
+          pageCount={totalPageNum} 
+          forcePage={searchQuery.page - 1} 
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
@@ -93,9 +93,8 @@ const AdminOrderPage = () => {
           breakLabel="..."
           breakClassName="page-item"
           breakLinkClassName="page-link"
-          containerClassName="pagination"
+          containerClassName='pagination display-center list-style-none'
           activeClassName="active"
-          className="display-center list-style-none"
         />
       </Container>
 
