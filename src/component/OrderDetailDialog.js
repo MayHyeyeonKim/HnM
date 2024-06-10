@@ -32,11 +32,6 @@ const OrderDetailDialog = ({ open, handleClose }) => {
     return <></>;
   }
 
-  // 디버깅을 위한 콘솔 출력
-  console.log("selectedOrder:", selectedOrder);
-  console.log("selectedOrder.updatedAt:", selectedOrder.updatedAt);
-
-  // 날짜 형식 변환
   const formattedDate = selectedOrder.updatedAt
     ? new Date(selectedOrder.updatedAt).toLocaleDateString("ko-KR", {
         year: "numeric",
@@ -51,19 +46,19 @@ const OrderDetailDialog = ({ open, handleClose }) => {
         <Modal.Title>Order Detail</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>예약번호: {selectedOrder.orderNum}</p>
-        <p>주문날짜: {formattedDate}</p>
-        <p>이메일: {selectedOrder.userId.email}</p>
+        <p>Reservation Number: {selectedOrder.orderNum}</p>
+        <p>Order Date: {formattedDate}</p>
+        <p>Email: {selectedOrder.userId.email}</p>
         <p>
-          주소: {selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
+        Address: {selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
         </p>
         <p>
-          연락처:
+        Contact:
           {`${
             selectedOrder.contact.firstName + " " + selectedOrder.contact.lastName
           } ${selectedOrder.contact.contact}`}
         </p>
-        <p>주문내역</p>
+        <p>Order Details</p>
         <div className="overflow-x">
           <Table>
             <thead>
@@ -87,7 +82,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                   </tr>
                 ))}
               <tr>
-                <td colSpan={4}>총계:</td>
+                <td colSpan={4}>Total:</td>
                 <td>{currencyFormat(selectedOrder.totalPrice)}</td>
               </tr>
             </tbody>

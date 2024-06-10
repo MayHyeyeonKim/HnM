@@ -60,7 +60,6 @@ const handleDeleteConfirm = () => {
                   <Button
                     size="sm"
                     variant="danger"
-                    // onClick={() => deleteItem(item._id)}
                     onClick={() =>  handleShowDeleteConfirm(item._id,item.name)}
                     className="mr-1"
                   >

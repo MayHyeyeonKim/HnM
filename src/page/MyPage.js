@@ -12,13 +12,6 @@ const MyPage = () => {
   useEffect(() => {
     dispatch(orderActions.getOrder());
   }, []);
-  // if (orderList?.length === 0) {
-  //   return (
-  //     <Container className="no-order-box">
-  //       <div>There are no orders in progress.</div>
-  //     </Container>
-  //   );
-  // }
   return (
     <Container className="status-card-container">
     {orderList.map((item) => (

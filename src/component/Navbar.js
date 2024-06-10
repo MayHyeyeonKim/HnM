@@ -1,35 +1,31 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import {
-  faBars,
-  faBox,
-  faSearch,
-  faShoppingBag,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { faBars, faBox, faSearch, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
 import * as types from "../constants/product.constants";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
+
   const { cartItemQty } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = [
-    "여성",
+    "Women",
     "Divided",
-    "남성",
-    "신생아/유아",
-    "아동",
+    "Men",
+    "Newborn/Baby",
+    "Kids",
     "H&M HOME",
     "Sale",
-    "지속가능성",
+    "Sustainability",
   ];
   let [width, setWidth] = useState(0);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
@@ -39,13 +35,14 @@ const Navbar = ({ user }) => {
 
       let searchKeyword = event.target.value;
       dispatch({ type: types.SET_SEARCH_KEYWORD, payload: searchKeyword });
-      console.log("서치워드", searchKeyword);
       navigate(`?name=${event.target.value}`);
     }
   };
+
   const logout = () => {
-    dispatch(userActions.logout(navigate));
+    dispatch(userActions.logout());
   };
+
   return (
     <div>
       {showSearchBox && (
@@ -95,19 +92,19 @@ const Navbar = ({ user }) => {
               <div onClick={logout} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
                 {!isMobile && (
-                  <span style={{ cursor: "pointer" }}>로그아웃</span>
+                  <span style={{ cursor: "pointer" }}>Logout</span>
                 )}
               </div>
             ) : (
               <div onClick={() => navigate("/login")} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
-                {!isMobile && <span style={{ cursor: "pointer" }}>로그인</span>}
+                {!isMobile && <span style={{ cursor: "pointer" }}>Login</span>}
               </div>
             )}
             <div onClick={() => navigate("/cart")} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
-                <span style={{ cursor: "pointer" }}>{`쇼핑백(${
+                <span style={{ cursor: "pointer" }}>{`My Cart(${
                   cartItemQty || 0
                 })`}</span>
               )}
@@ -117,7 +114,7 @@ const Navbar = ({ user }) => {
               className="nav-icon"
             >
               <FontAwesomeIcon icon={faBox} />
-              {!isMobile && <span style={{ cursor: "pointer" }}>내 주문</span>}
+              {!isMobile && <span style={{ cursor: "pointer" }}>My Order</span>}
             </div>
             {isMobile && (
               <div className="nav-icon" onClick={() => setShowSearchBox(true)}>
@@ -141,7 +138,7 @@ const Navbar = ({ user }) => {
             </li>
           ))}
         </ul>
-        {!isMobile && ( // admin페이지에서 같은 search-box스타일을 쓰고있음 그래서 여기서 서치박스 안보이는것 처리를 해줌
+        {!isMobile && (
           <div className="search-box landing-search-box ">
             <FontAwesomeIcon icon={faSearch} />
             <input

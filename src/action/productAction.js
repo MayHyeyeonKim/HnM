@@ -44,19 +44,7 @@ const createProduct = (formData) => async (dispatch) => {
     dispatch(commonUiActions.showToastMessage(error.message, "error"));
   }
 };
-// const deleteProduct = (id) => async (dispatch) => {
-//   try{
-//     dispatch({type:types.PRODUCT_DELETE_REQUEST});
-//     const response = await api.delete(`/product/${id}`)
-//     console.log("삭제기능")
-//     dispatch({type:types.PRODUCT_DELETE_SUCCESS});
-//     dispatch(getProductList({page:1}));
-//     dispatch(commonUiActions.showToastMessage("The product has been deleted.", "success"));
-//   }catch(error){
-//     dispatch({type:types.PRODUCT_DELETE_FAIL, payload:error.message})
-//     dispatch(commonUiActions.showToastMessage(error.message, "error"));
-//   }
-// };
+
 const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: types.PRODUCT_DELETE_REQUEST });

@@ -5,13 +5,9 @@ const addToCart =
   ({ id, size }) =>
   async (dispatch) => {
     try{
-      console.log("11")
       dispatch({type: types.ADD_TO_CART_REQUEST})
-      console.log("22")
       const response = await api.post("/cart", {productId:id, size:size, qty:1})
-      console.log("r",response)
       if(response.status !==200)throw new Error(response.error);
-      // dispatch({type:types.ADD_TO_CART_SUCCESS, payload: response.data});
       dispatch({type:types.ADD_TO_CART_SUCCESS, payload: response.data.cartItemQty,});
       dispatch(commonUiActions.showToastMessage("Item has been added to the cart.","success"))
     }catch(error){
@@ -24,7 +20,6 @@ const getCartList = () => async (dispatch) => {
   try{
     dispatch({type:types.GET_CART_LIST_REQUEST})
     const response = await api.get("/cart")
-    console.log("cartList의 response얌!", response)
     if(response.status !==200) throw new Error(response.error)
       dispatch({type: types.GET_CART_LIST_SUCCESS, payload: response.data.data})
   }catch(error){

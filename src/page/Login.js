@@ -19,20 +19,14 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async (googleData) => {
-    console.log("hehe", googleData)
     dispatch(userActions.loginWithGoogle(googleData.credential))
   };
-
-  // if (user) {
-  //   navigate("/");
-  // }
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
   }, [user, navigate]);
-
 
   useEffect(() => {
     return () => {
@@ -81,13 +75,11 @@ const Login = () => {
 
           <div className="text-align-center mt-2">
             <p>-Log in with an external account.-</p>
-            <GoogleLogin
+            <div className="display-center"><GoogleLogin
               onSuccess={handleGoogleLogin}
               onError={() => {
-                console.log('Login Failed');
               }}
-            />
-            <div className="display-center"></div>
+            /></div>
           </div>
         </Form>
       </Container>

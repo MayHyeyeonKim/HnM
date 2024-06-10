@@ -19,13 +19,9 @@ const createOrder = (payload, navigate) => async (dispatch) => {
 
 const getOrder = () => async (dispatch) => {
   try {
-    console.log("getOderrrr1")
     dispatch({ type: types.GET_ORDER_REQUEST });
-    console.log("getOderrrr22")
     const response = await api.get("/order/me");
-    console.log("getOderrrr3")
     if (response.status !== 200) throw new Error(response.error);
-
     dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data });
   } catch (error) {
     dispatch({ type: types.GET_ORDER_FAIL, error: error });

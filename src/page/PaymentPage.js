@@ -31,14 +31,9 @@ const PaymentPage = () => {
     zip: "",
   });
   const {cartList, totalPrice} = useSelector((state)=>state.cart)
-console.log("shipInfo:", shipInfo)
-  //맨처음 페이지 로딩할때는 넘어가고  오더번호를 받으면 성공페이지로 넘어가기
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const {firstName, lastName, contact, address, city, zip} = shipInfo
-    console.log("cartList", cartList)
-    //오더 생성하기
     const data = {totalPrice, shipTo:{address,city,zip}, contact:{firstName, lastName, contact}, orderList: cartList.map(item => {
       return{
         productId: item.productId._id,
@@ -51,13 +46,11 @@ console.log("shipInfo:", shipInfo)
   };
 
   const handleFormChange = (event) => {
-    //shipInfo에 값 넣어주기
     const {name, value} = event.target
     setShipInfo({...shipInfo, [name]:value});
   };
 
   const handlePaymentInfoChange = (event) => {
-    //카드정보 넣어주기
     const {name, value} =event.target
     if (name == "expiry"){
       let newValue = cc_expires_format(value);
@@ -70,7 +63,6 @@ console.log("shipInfo:", shipInfo)
   const handleInputFocus = (e) => {
     setCardValue({ ...cardValue, focus: e.target.name });
   };
-  //카트에 아이템이 없다면 다시 카트페이지로 돌아가기 (결제할 아이템이 없으니 결제페이지로 가면 안됌)
   if(cartList.length === 0){
     navigate("/cart")
   }

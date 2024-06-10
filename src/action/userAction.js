@@ -9,9 +9,7 @@ const loginWithToken = () => async (dispatch) => {
     const response = await api.get("/user/me")
     if(response.status !== 200)
       throw new Error(response.data.message)
-    // console.log("rrrrr1", response);
     dispatch({type: types.LOGIN_WITH_TOKEN_SUCCESS, payload: response.data})
-
   }catch(error){
     dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL, payload: error })
     dispatch(logout())
@@ -29,10 +27,9 @@ const loginWithEmail = ({email, password}) => async (dispatch) => {
     dispatch({type:types.LOGIN_FAIL,payload:error.message})
   }
 };
-const logout = (navigate) => async (dispatch) => {
+const logout = () => async (dispatch) => {
   dispatch({ type: types.LOGOUT });
   sessionStorage.removeItem("token");
-  navigate("/"); 
 };
 
 const loginWithGoogle = (token) => async (dispatch) => {
@@ -48,8 +45,7 @@ const loginWithGoogle = (token) => async (dispatch) => {
   }
 };
 
-const registerUser =
-  ({ email, name, password }, Navigate) =>
+const registerUser = ({ email, name, password }, Navigate) =>
   async (dispatch) => {
     try{
       dispatch({type: types.REGISTER_USER_REQUEST})
@@ -66,7 +62,6 @@ const registerUser =
 const deleteError = ()=> async(dispatch)=>{
   dispatch({type: types.DELETE_ERROR})
 };
-
 
 export const userActions = {
   loginWithToken,

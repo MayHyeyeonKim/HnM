@@ -17,15 +17,11 @@ const ProductAll = () => {
   const name = query.get("name");
   const page = query.get("page");
 
-  //처음 로딩하면 상품리스트, 상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(() => {
     dispatch(productActions.getProductList({ name }));
   }, [query])
 
   useEffect(() => {
-    //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
-
-    // URLSearchParams 객체를 쿼리로 만들어줌
     const searchQuery = {
       page: query.get("page") || 1,
       name: query.get("name") || "",
@@ -54,9 +50,9 @@ const ProductAll = () => {
               ) : (
                 <div className="text-align-center empty-bag">
                   {name === "" ? (
-                    <h2>등록된 상품이 없습니다!</h2>
+                    <h2>No products registered.</h2>
                   ) : (
-                    <h2>{name}과 일치한 상품이 없습니다!`</h2>
+                    <h2>No products match {name}.`</h2>
                   )}
                 </div>
               )}

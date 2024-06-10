@@ -14,17 +14,12 @@ const api = axios.create({
     authorization: `Bearer ${sessionStorage.getItem("token")}`,
   },
 });
-/**
- * console.log all requests and responses
- */
 api.interceptors.request.use(
   (request) => {
-    // console.log("Starting Request", request);
     request.headers.authorization = `Bearer ${sessionStorage.getItem("token")}`;
     return request;
   },
   function (error) {
-    // console.log("REQUEST ERROR", error);
   }
 );
 
@@ -34,7 +29,6 @@ api.interceptors.response.use(
   },
   function (error) {
     error = error.response.data;
-    // console.log("RESPONSE ERROR", error);
     return Promise.reject(error);
   }
 );
