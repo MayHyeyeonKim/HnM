@@ -3,12 +3,30 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import { currencyFormat } from "../utils/number";
 import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
   const [productlist, setProductlist] = useState([])
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const [deleteName, setDeleteName] = useState("");
   useEffect(()=>{
     if(data)
       setProductlist(data)
   },[data])
+
+  const handleShowDeleteConfirm = (id, name) => {
+    setDeleteId(id);
+    setDeleteName(name);
+    setShowDeleteConfirm(true);
+};
+
+const handleDeleteConfirm = () => {
+    if (deleteId) {
+        deleteItem(deleteId);
+    }
+    setShowDeleteConfirm(false);
+};
   return (
     <div className="overflow-x">
       <Table striped bordered hover>
@@ -42,7 +60,8 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                   <Button
                     size="sm"
                     variant="danger"
-                    onClick={() => deleteItem(item._id)}
+                    // onClick={() => deleteItem(item._id)}
+                    onClick={() =>  handleShowDeleteConfirm(item._id,item.name)}
                     className="mr-1"
                   >
                     -
@@ -58,6 +77,28 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
           )}
         </tbody>
       </Table>
+      <Modal
+                show={showDeleteConfirm}
+                onHide={() => setShowDeleteConfirm(false)}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {`Are you sure you want to delete "${deleteName}"?`}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowDeleteConfirm(false)}
+                    >
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteConfirm}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
     </div>
   );
 };
