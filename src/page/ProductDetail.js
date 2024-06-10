@@ -91,7 +91,7 @@ const ProductDetail = () => {
                 {size ? size.toUpperCase() : "Select Size"}
               </Dropdown.Toggle>
 
-              <Dropdown.Menu className="size-drop-down">
+              {/* <Dropdown.Menu className="size-drop-down">
               { selectedProduct && Object.keys(selectedProduct?.stock).length > 0 &&
                 Object.keys(selectedProduct?.stock).map((sz, i) =>
                   selectedProduct?.stock[sz] > 0 ? (
@@ -104,7 +104,25 @@ const ProductDetail = () => {
                     </Dropdown.Item>
                   )
                 )}
-            </Dropdown.Menu>
+            </Dropdown.Menu> */}
+            <Dropdown.Menu className="size-drop-down">
+      {Object.keys(selectedProduct.stock).map((item) =>
+        selectedProduct.stock[item] > 0 ? (
+          <Dropdown.Item key={item} eventKey={item}>
+            {item.toUpperCase()}
+            {selectedProduct.stock[item] <= 5 && (
+              <span className="low-stock">
+                {" "} - {selectedProduct.stock[item]} item(s) (Almost Out of Stock)
+              </span>
+            )}
+          </Dropdown.Item>
+        ) : (
+          <Dropdown.Item key={item} eventKey={item} disabled>
+            {item.toUpperCase()} - Out of Stock
+          </Dropdown.Item>
+        )
+      )}
+    </Dropdown.Menu>
             </Dropdown>
             <div className="warning-message">
               {sizeError && "Please select a size."}
