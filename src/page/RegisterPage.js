@@ -121,8 +121,8 @@ const RegisterPage = () => {
             checked={formData.policy}
           />
         </Form.Group>
-        <Button variant="danger" type="submit">
-          회원가입
+        <Button variant="dark" type="submit">
+          SignUp
         </Button>
       </Form>
     </Container>

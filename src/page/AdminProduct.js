@@ -77,7 +77,7 @@ const AdminProduct = () => {
             field="name"
           />
         </div>
-        <Button className="mt-2 mb-2" onClick={handleClickNewItem}>
+        <Button variant="dark" className="mt-2 mb-2" onClick={handleClickNewItem}>
           Add New Item +
         </Button>
 

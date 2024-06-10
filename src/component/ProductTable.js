@@ -93,7 +93,7 @@ const handleDeleteConfirm = () => {
                     >
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={handleDeleteConfirm}>
+                    <Button variant="dark" onClick={handleDeleteConfirm}>
                         Delete
                     </Button>
                 </Modal.Footer>

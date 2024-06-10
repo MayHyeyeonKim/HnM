@@ -184,7 +184,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           {stockError && (
             <span className="error-message">재고를 추가해주세요</span>
           )}
-          <Button size="sm" onClick={addStock}>
+          <Button variant="dark" size="sm" onClick={addStock}>
             Add +
           </Button>
           <div className="mt-2">
@@ -228,7 +228,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                 </Col>
                 <Col sm={2}>
                   <Button
-                    variant="danger"
+                    variant="dark"
                     size="sm"
                     onClick={() => deleteStock(index)}
                   >
@@ -297,11 +297,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           </Form.Group>
         </Row>
         {mode === "new" ? (
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Submit
           </Button>
         ) : (
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Edit
           </Button>
         )}

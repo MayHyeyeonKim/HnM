@@ -105,9 +105,9 @@ const OrderDetailDialog = ({ open, handleClose }) => {
               onClick={handleClose}
               className="order-button"
             >
-              닫기
+              Close
             </Button>
-            <Button type="submit">저장</Button>
+            <Button type="submit">Save</Button>
           </div>
         </Form>
       </Modal.Body>

@@ -25,12 +25,12 @@ const OrderCompletePage = () => {
         className="check-image"
         alt="greenCheck.png"
       />
-      <h2>주문 완료 되었습니다!</h2>
-      <div>주문번호:{orderNum}</div>
+      <h2>Your order has been completed!</h2>
+      <div>Order Number: {orderNum}</div>
       <div>
-      주문 확인은 내 예약 메뉴에서 확인해주세요
+      Please check the "My Order" menu to confirm your order.
         <div className="text-align-center">
-          <Link to={"/account/purchase"}>내 주문 바로가기</Link>
+          <Link to={"/account/purchase"}>Go to My Order</Link>
         </div>
       </div>
     </Container>
