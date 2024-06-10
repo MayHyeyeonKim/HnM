@@ -9,7 +9,6 @@ const getProductList = (query) => async (dispatch) => {
     const response = await api.get("/product",
             { params: { ...query } }
         );
-    console.log("productAction에서 리스폰스: ", response);
     dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data});
   } catch (error) {
     dispatch({ type: types.PRODUCT_GET_FAIL, payload: error.message });

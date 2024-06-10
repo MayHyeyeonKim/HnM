@@ -44,7 +44,7 @@ const Navbar = ({ user }) => {
     }
   };
   const logout = () => {
-    dispatch(userActions.logout());
+    dispatch(userActions.logout(navigate));
   };
   return (
     <div>

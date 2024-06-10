@@ -52,7 +52,6 @@ const updateQty = (id, value) => async (dispatch) => {
     dispatch({ type: types.UPDATE_CART_ITEM_REQUEST });
     const response = await api.put(`/cart/${id}`, { qty: value });
     if (response.status !== 200) throw new Error(response.error);
-
     dispatch({
       type: types.UPDATE_CART_ITEM_SUCCESS,
       payload: response.data.data,
@@ -65,10 +64,8 @@ const updateQty = (id, value) => async (dispatch) => {
 
 const getCartQty = () => async (dispatch) => {
   try {
-    console.log("getCartQty보여줘")
     dispatch({ type: types.GET_CART_QTY_REQUEST });
     const response = await api.get("/cart/qty");
-    console.log("퀀티티~", response)
     if (response.status !== 200) throw new Error(response.error);
     dispatch({ type: types.GET_CART_QTY_SUCCESS, payload: response.data.qty });
   } catch (error) {

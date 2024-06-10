@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
 import "../style/login.style.css";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,12 +15,12 @@ const Login = () => {
 
   const loginWithEmail = (event) => {
     event.preventDefault();
-    //이메일,패스워드를 가지고 백엔드로 보내기
-    dispatch(userActions.loginWithEmail({email,password}))
+    dispatch(userActions.loginWithEmail({ email, password }))
   };
 
   const handleGoogleLogin = async (googleData) => {
-    // 구글로 로그인 하기
+    console.log("hehe", googleData)
+    dispatch(userActions.loginWithGoogle(googleData.credential))
   };
 
   // if (user) {
@@ -32,13 +33,13 @@ const Login = () => {
     }
   }, [user, navigate]);
 
-  
-  useEffect(()=>{
-    return ()=>{
+
+  useEffect(() => {
+    return () => {
       dispatch(userActions.deleteError());
     }
   },
-  [])
+    [])
 
   return (
     <>
@@ -73,12 +74,19 @@ const Login = () => {
               Login
             </Button>
             <div>
-              아직 계정이 없으세요?<Link to="/register">회원가입 하기</Link>{" "}
+            Do you not have an account yet?
+            <Link to="/register">Sign Up</Link>{" "}
             </div>
           </div>
 
           <div className="text-align-center mt-2">
-            <p>-외부 계정으로 로그인하기-</p>
+            <p>-Log in with an external account.-</p>
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
             <div className="display-center"></div>
           </div>
         </Form>

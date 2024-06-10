@@ -25,18 +25,28 @@ const loginWithEmail = ({email, password}) => async (dispatch) => {
     if(response.status!==200) throw new Error(response.error);
     sessionStorage.setItem("token", response.data.token);
     dispatch({type: types.LOGIN_SUCCESS, payload: response.data});
-    sessionStorage.setItem("token", response.data.token)
   }catch(error){
     dispatch({type:types.LOGIN_FAIL,payload:error.message})
   }
 };
-const logout = () => async (dispatch) => {
-  dispatch({type: types.LOGOUT})
+const logout = (navigate) => async (dispatch) => {
+  dispatch({ type: types.LOGOUT });
   sessionStorage.removeItem("token");
-  
+  navigate("/"); 
 };
 
-const loginWithGoogle = (token) => async (dispatch) => {};
+const loginWithGoogle = (token) => async (dispatch) => {
+  try{
+    dispatch({type: types.GOOGLE_LOGIN_REQUEST})
+    const response = await api.post("/auth/google",{token})
+    if(response.status !== 200) throw new Error(response.error)
+    sessionStorage.setItem("token", response.data.token)
+    dispatch({type: types.GOOGLE_LOGIN_SUCCESS, payload:response.data})
+  }catch(error){
+    dispatch({type: types.GOOGLE_LOGIN_FAIL, payload:error.error})
+    dispatch(commonUiActions.showToastMessage(error.error, "error"))
+  }
+};
 
 const registerUser =
   ({ email, name, password }, Navigate) =>

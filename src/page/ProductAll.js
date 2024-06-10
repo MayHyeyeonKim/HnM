@@ -12,7 +12,6 @@ const ProductAll = () => {
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.product.error);
   const searchKeyword = useSelector((state) => state.product.searchKeyword);
-  console.log("ProductAll안의 searchKeyword", searchKeyword);
   const { productList, totalPageNum } = useSelector((state) => state.product);
   const [query, setQuery] = useSearchParams();
   const name = query.get("name");
@@ -33,8 +32,6 @@ const ProductAll = () => {
     };
     const params = new URLSearchParams(searchQuery);
     const navigateQuery = params.toString();
-    console.log("ProductAll안의 navigateQuery", navigateQuery);
-
     navigate("?" + navigateQuery);
 
   }, [name]);
