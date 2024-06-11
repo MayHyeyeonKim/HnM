@@ -20,7 +20,7 @@ const Navbar = ({ user }) => {
     "Men",
     "Newborn/Baby",
     "Kids",
-    "H&M HOME",
+    "HOME",
     "Sale",
     "Sustainability",
   ];
