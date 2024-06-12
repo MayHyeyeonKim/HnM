@@ -69,9 +69,22 @@ const updateOrder = (id, status) => async (dispatch) => {
     dispatch(commonUiActions.showToastMessage(error, "error"));
   }
 };
+
+const deletOrder = (id) => async(dispatch) => {
+  try{
+    dispatch({type: types.DELETE_ORDER_REQUEST});
+    const response = await api.delete(`/order/${id}`)
+    dispatch({type: types.DELETE_ORDER_SUCCESS, payload:id});
+    dispatch(commonUiActions.showToastMessage("Order Delete Completed!", "success"));
+  }catch(error){
+    dispatch({ type: types.DELETE_ORDER_FAIL, error: error });
+    dispatch(commonUiActions.showToastMessage(error, "error"));
+  }
+};
 export const orderActions = {
   createOrder,
   getOrder,
   getOrderList,
   updateOrder,
+  deletOrder
 };
