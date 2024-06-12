@@ -295,29 +295,4 @@ body{
   color: rgb(89, 85, 85);
 }
 
-.order-image {
-  width: 150px;
-  height: 96px;
-  object-fit: cover;
-}
-
-.low-stock {
-  color: rgb(238, 120, 120)
-}
-
-.fixed-button {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: black;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  z-index: 1000; /* Ensure the button is above other content */
-}
-
-.fixed-button:hover {
-  background-color: #333; /* Optional: Change background color on hover */
-}
 
