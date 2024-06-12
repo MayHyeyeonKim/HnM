@@ -5,6 +5,7 @@ import { faBars, faBox, faSearch, faShoppingBag } from "@fortawesome/free-solid-
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
+import { productActions } from "../action/productAction";
 import * as types from "../constants/product.constants";
 import { Row, Col, Container } from "react-bootstrap";
 
@@ -39,6 +40,10 @@ const Navbar = ({ user }) => {
       navigate(`?name=${event.target.value}`);
     }
   };
+  const handleCategoryChange = (category) => {
+    console.log("handleCategoryChange작동함", category)
+    dispatch(productActions.getProductList({ category }));
+  }
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -141,7 +146,7 @@ const Navbar = ({ user }) => {
         <div className="nav-menu-area">
           <ul className="menu">
             {menuList.map((menu, index) => (
-              <li key={index}>
+              <li key={index} onClick={() => handleCategoryChange(menu.toLowerCase())}>
                 <a href="#">{menu}</a>
               </li>
             ))}

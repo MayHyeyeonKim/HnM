@@ -114,7 +114,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       });
     }
   };
-
+  
   const uploadImage = (url) => {
     setFormData({ ...formData, image: url });
   };
@@ -182,7 +182,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         <Form.Group className="mb-3" controlId="stock">
           <Form.Label className="mr-1">Stock</Form.Label>
           {stockError && (
-            <span className="error-message">재고를 추가해주세요</span>
+            <span className="error-message">add stock</span>
           )}
           <Button variant="dark" size="sm" onClick={addStock}>
             Add +
