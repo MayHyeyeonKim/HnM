@@ -295,4 +295,12 @@ body{
   color: rgb(89, 85, 85);
 }
 
+.order-image {
+  width: 150px;
+  height: 96px;
+  object-fit: cover;
+}
 
+.low-stock {
+  color: rgb(238, 120, 120)
+}
