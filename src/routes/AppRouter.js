@@ -11,7 +11,7 @@ import ProductAll from "../page/ProductAll";
 import ProductDetail from "../page/ProductDetail";
 import RegisterPage from "../page/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
-import ProductPage from "../page/ProductPage"; // 새로운 카테고리 페이지 임포트
+import ProductPage from "../page/ProductPage";
 
 const AppRouter = () => {
   return (
