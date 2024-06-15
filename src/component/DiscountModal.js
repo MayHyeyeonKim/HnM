@@ -13,7 +13,7 @@ const DiscountModal = ({ show, handleClose }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate(`/register?email=${encodeURIComponent(email)}`);
+        navigate(`/register?email=${encodeURIComponent(email)}&isDiscountPath=true`);
         handleClose();
     };
 

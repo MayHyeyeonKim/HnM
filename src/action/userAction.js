@@ -45,11 +45,11 @@ const loginWithGoogle = (token) => async (dispatch) => {
   }
 };
 
-const registerUser = ({ email, name, password }, Navigate) =>
+const registerUser = ({ email, name, password, isDiscountPath }, Navigate) =>
   async (dispatch) => {
     try{
       dispatch({type: types.REGISTER_USER_REQUEST})
-      const Response = await api.post("/user", {email, name, password});
+      const Response = await api.post("/user", {email, name, password, isDiscountPath});
       if(Response.status !== 200) throw new Error(Response.error);
       dispatch({type:types.REGISTER_USER_SUCCESS, payload: Response.data})
       dispatch(commonUiActions.showToastMessage("Registration completed successfully.", "success"));

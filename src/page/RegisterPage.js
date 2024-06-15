@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router";
 import { userActions } from "../action/userAction";
 import "../style/register.style.css";
 import { Navigate } from 'react-router-dom';
+
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -12,6 +13,7 @@ const RegisterPage = () => {
 
   const queryParams = new URLSearchParams(location.search);
   const emailQuery = queryParams.get("email");
+  const isDiscountPath = queryParams.get("isDiscountPath") === 'true';
 
   const [formData, setFormData] = useState({
     email: emailQuery || "",
@@ -38,7 +40,7 @@ const RegisterPage = () => {
     }
     setPasswordError("")
     setPolicyError(false)
-    dispatch(userActions.registerUser({name, email, password}, navigate));
+    dispatch(userActions.registerUser({name, email, password, isDiscountPath}, navigate));
   };
 
   const handleChange = (event) => {
