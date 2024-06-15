@@ -19,7 +19,7 @@ const Navbar = ({ user }) => {
     "Women",
     "Divided",
     "Men",
-    "Newborn/Baby",
+    "Baby",
     "Kids",
     "HOME",
     "Sale",
