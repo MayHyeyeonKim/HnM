@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { userActions } from "../action/userAction";
 import "../style/register.style.css";
+import { Navigate } from 'react-router-dom';
 const RegisterPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const Navigate = useNavigate();
+
+  const queryParams = new URLSearchParams(location.search);
+  const emailQuery = queryParams.get("email");
+
   const [formData, setFormData] = useState({
-    email: "",
+    email: emailQuery || "",
     name: "",
     password: "",
     confirmPassword: "",
@@ -72,6 +79,7 @@ const RegisterPage = () => {
           <Form.Control
             type="email"
             id="email"
+            value={formData.email}
             placeholder="Enter email"
             onChange={handleChange}
             required
