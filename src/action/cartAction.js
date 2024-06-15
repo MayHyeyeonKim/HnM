@@ -68,10 +68,22 @@ const getCartQty = () => async (dispatch) => {
     dispatch(commonUiActions.showToastMessage(error, "error"));
   }
 };
+
+const getAvailableCoupons = () => async (dispatch) => {
+  try {
+    dispatch({type: types.GET_COUPONS_REQUEST}); 
+    const response = await api.get("/cart/coupons");
+    dispatch({type: types.GET_COUPONS_SUCCESS, payload: response.data,});
+  } catch (error) {
+    dispatch({type: types.GET_COUPONS_FAIL, payload: error.message,});
+  }
+};
+
 export const cartActions = {
   addToCart,
   getCartList,
   deleteCartItem,
   updateQty,
   getCartQty,
+  getAvailableCoupons
 };

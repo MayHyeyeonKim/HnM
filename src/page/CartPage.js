@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../action/cartAction";
@@ -9,10 +8,12 @@ import "../style/cart.style.css";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartList, totalPrice } = useSelector((state) => state.cart);
+  const { cartList, totalPrice, coupons } = useSelector((state) => state.cart);
+
   useEffect(() => {
     dispatch(cartActions.getCartList());
-  }, []);
+    dispatch(cartActions.getAvailableCoupons());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -30,7 +31,7 @@ const CartPage = () => {
           )}
         </Col>
         <Col xs={12} md={5}>
-          <OrderReceipt cartList={cartList} totalPrice={totalPrice}/>
+          <OrderReceipt cartList={cartList} totalPrice={totalPrice} coupons={coupons}/>
         </Col>
       </Row>
     </Container>

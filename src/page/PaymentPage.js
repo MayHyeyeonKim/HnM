@@ -71,7 +71,7 @@ const PaymentPage = () => {
       <Row>
         <Col lg={7}>
           <div>
-            <h2 className="mb-2">배송 주소</h2>
+            <h2 className="mb-2">Shipping Address</h2>
             <div>
               <Form onSubmit={handleSubmit}>
                 <Row className="mb-3">
@@ -139,7 +139,7 @@ const PaymentPage = () => {
                   <OrderReceipt cartList={cartList} totalPrice={totalPrice}/>
                 </div>
                 <div>
-                  <h2 className="payment-title">결제 정보</h2>
+                  <h2 className="payment-title">Payment Information</h2>
                   <PaymentForm cardValue={cardValue} handleInputFocus={handleInputFocus} handlePaymentInfoChange={handlePaymentInfoChange}/>
                 </div>
 

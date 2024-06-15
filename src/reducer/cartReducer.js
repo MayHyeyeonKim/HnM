@@ -7,11 +7,13 @@ const initialState = {
   cartItemQty: 0, 
   cartList: [],
   totalPrice: 0,
-
+  coupons: []
 };
-
 function cartReducer(state = initialState, action) {
+
   const { type, payload } = action;
+  // console.log("Action Type:", type);
+  // console.log("Payload:", payload);
   switch(type){
     case LOGOUT: {
       return { ...state, cartItemQty: 0 };}
@@ -21,6 +23,7 @@ function cartReducer(state = initialState, action) {
     case types.DELETE_CART_ITEM_REQUEST:
     case types.UPDATE_CART_ITEM_REQUEST:
     case types.GET_CART_QTY_REQUEST:
+    case types.GET_COUPONS_REQUEST:
       return {...state, loading:true};
 
     case types.ADD_TO_CART_SUCCESS:
@@ -31,6 +34,10 @@ function cartReducer(state = initialState, action) {
     case types.GET_CART_LIST_SUCCESS:
       return {...state, loading: false, cartList: payload, totalPrice: payload.reduce((total,item)=>total += item.productId.price * item.qty,0)}
 
+    case types.GET_COUPONS_SUCCESS:
+      console.log("여기는 카트리듀서이다. 쿠폰이 잘 들어왔을까?", payload.coupons)
+      return {...state, coupons:payload.coupons}
+
     case types.GET_CART_QTY_SUCCESS:
       return { ...state, cartItemQty: payload };
 
@@ -39,6 +46,7 @@ function cartReducer(state = initialState, action) {
     case types.UPDATE_CART_ITEM_FAIL:
     case types.GET_CART_LIST_FAIL:
     case types.GET_CART_QTY_FAIL:
+    case types.GET_COUPONS_FAIL: 
       return{...state, loading:false, error:payload}
     default:
       return state;
