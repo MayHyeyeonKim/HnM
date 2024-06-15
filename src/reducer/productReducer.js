@@ -1,7 +1,8 @@
 import * as types from "../constants/product.constants";
+
 const initialState = {
   loading: false,
-  error:"",
+  error: "",
   productList: [],
   totalPageNum: 1,
   searchKeyword: "",

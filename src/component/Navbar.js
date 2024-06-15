@@ -23,7 +23,6 @@ const Navbar = ({ user }) => {
     "Kids",
     "HOME",
     "Sale",
-    // "Sustainability",
   ];
   let [width, setWidth] = useState(0);
   const navigate = useNavigate();
@@ -40,11 +39,11 @@ const Navbar = ({ user }) => {
       navigate(`?name=${event.target.value}`);
     }
   };
+
   const handleCategoryChange = (category) => {
-    console.log("handleCategoryChange작동함", category)
     dispatch(productActions.getProductList({ category }));
-    console.log("디스패치후",category)
-  }
+    navigate(`/${category}`);
+  };
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -148,7 +147,7 @@ const Navbar = ({ user }) => {
           <ul className="menu">
             {menuList.map((menu, index) => (
               <li key={index} onClick={() => handleCategoryChange(menu.toLowerCase())}>
-                <a href="#">{menu}</a>
+                <Link to={`/${menu.toLowerCase()}`}>{menu}</Link>
               </li>
             ))}
           </ul>

@@ -17,9 +17,9 @@ const ProductAll = () => {
   const name = query.get("name");
   const page = query.get("page");
 
-  useEffect(() => {
-    dispatch(productActions.getProductList({ name }));
-    console.log("프로덕트올에서 name은 뭘까?",name)
+  useEffect((category) => {
+    dispatch(productActions.getProductList({ category }));
+
   }, [query])
 
   useEffect(() => {

@@ -33,13 +33,12 @@ const AppLayout = ({ children }) => {
     <div>
       <ToastMessage />
       {/* <SummerSaleModal show={showModal} handleClose={handleCloseModal} />  */}
-      <div>
+      {/* <div>
             <button className="fixed-button" onClick={handleShow}>
                 Get 15% off
             </button>
             <DiscountModal show={showModal} handleClose={handleClose} />
-            
-        </div>
+        </div> */}
       {location.pathname.includes("admin") ? (
         <Row className="vh-100">
           <Col xs={12} md={3} className="sidebar mobile-sidebar">
