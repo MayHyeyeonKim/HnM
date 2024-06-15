@@ -23,7 +23,7 @@ const Navbar = ({ user }) => {
     "Kids",
     "HOME",
     "Sale",
-    "Sustainability",
+    // "Sustainability",
   ];
   let [width, setWidth] = useState(0);
   const navigate = useNavigate();
@@ -43,6 +43,7 @@ const Navbar = ({ user }) => {
   const handleCategoryChange = (category) => {
     console.log("handleCategoryChange작동함", category)
     dispatch(productActions.getProductList({ category }));
+    console.log("디스패치후",category)
   }
 
   const logout = () => {

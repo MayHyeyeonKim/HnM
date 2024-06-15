@@ -19,6 +19,7 @@ const ProductAll = () => {
 
   useEffect(() => {
     dispatch(productActions.getProductList({ name }));
+    console.log("프로덕트올에서 name은 뭘까?",name)
   }, [query])
 
   useEffect(() => {
