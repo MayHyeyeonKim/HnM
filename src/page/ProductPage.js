@@ -4,12 +4,15 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { ClipLoader } from 'react-spinners';
 import { productActions } from '../action/productAction';
 import ProductCard from "../component/ProductCard";
+import { useParams } from 'react-router';
 
 const ProductPage = ({ category }) => {
     const dispatch = useDispatch();
     const { productList, loading, error } = useSelector((state) => state.product);
-
+    const params = useParams();
+    // console.log("params", params)
     useEffect(() => {
+        
         dispatch(productActions.getProductList({ category }));
     }, [category, dispatch]);
 

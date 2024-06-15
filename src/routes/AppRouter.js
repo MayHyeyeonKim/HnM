@@ -27,7 +27,7 @@ const AppRouter = () => {
       <Route path="/kids" element={<ProductPage category="kids" />} />
       <Route path="/home" element={<ProductPage category="home" />} />
       <Route path="/sale" element={<ProductPage category="sale" />} /> */}
-      <Route path="/:category" element={<ProductPage />} />
+      {/* <Route path="/:category2" element={<ProductPage />} /> */}
       <Route element={<PrivateRoute permissionLevel="customer" />}>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/payment" element={<PaymentPage />} />

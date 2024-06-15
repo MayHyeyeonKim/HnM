@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faBars, faBox, faSearch, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
 import { productActions } from "../action/productAction";
-import * as types from "../constants/product.constants";
-import { Row, Col, Container } from "react-bootstrap";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
-
+  const [query] = useSearchParams();
   const { cartItemQty } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
@@ -30,20 +28,31 @@ const Navbar = ({ user }) => {
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
-        dispatch({ type: types.SET_SEARCH_KEYWORD, payload: "" });
         return navigate("/");
       }
-
-      let searchKeyword = event.target.value;
-      dispatch({ type: types.SET_SEARCH_KEYWORD, payload: searchKeyword });
-      navigate(`?name=${event.target.value}`);
+      navigate(`?&name=${event.target.value}`); //쿼리파라미터
+      // navigate(`/${category}`) //동적라우터
     }
   };
 
-  const handleCategoryChange = (category) => {
+  const name = query.get("name");
+  useEffect(() => {
+    const category = {
+      name: query.get("name") || "",
+    };
     dispatch(productActions.getProductList({ category }));
-    navigate(`/${category}`);
+  }, [name]);
+
+  const handleCategoryChange = (category) => {
+    navigate(`?category=${category}`)
   };
+
+  useEffect(()=>{
+    if(!query.get("name")){    
+      const category = {category:query.get("category")}
+    dispatch(productActions.getProductList({ category }));
+    }
+  },[query])
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -76,7 +85,6 @@ const Navbar = ({ user }) => {
           <button className="closebtn" onClick={() => setWidth(0)}>
             &times;
           </button>
-
           <div className="side-menu-list" id="menu-list">
             {menuList.map((menu, index) => (
               <button key={index}>{menu}</button>
@@ -146,8 +154,8 @@ const Navbar = ({ user }) => {
         <div className="nav-menu-area">
           <ul className="menu">
             {menuList.map((menu, index) => (
-              <li key={index} onClick={() => handleCategoryChange(menu.toLowerCase())}>
-                <Link to={`/${menu.toLowerCase()}`}>{menu}</Link>
+              <li className="menu-item" key={index} onClick={() => handleCategoryChange(menu.toLowerCase())}>
+                <div>{menu}</div>
               </li>
             ))}
           </ul>

@@ -2,6 +2,7 @@ body{
   font-family: sans-serif;
   background-color: #FAF9F8;
 }
+
 .nav-header{
   display:flex;
   justify-content: space-between;
@@ -26,6 +27,7 @@ body{
 }
 .menu{
   display: flex;
+  gap: 20px;
   list-style-type: none;
   padding: 20px;
 }
@@ -33,6 +35,9 @@ body{
   text-decoration: none;
   color:rgb(89, 85, 85);
   margin-left:20px;
+}
+.menu-item{
+  cursor: pointer;
 }
 
 .nav-logo{
