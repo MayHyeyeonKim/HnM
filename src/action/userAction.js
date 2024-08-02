@@ -27,6 +27,7 @@ const loginWithEmail = ({email, password}) => async (dispatch) => {
     dispatch({type:types.LOGIN_FAIL,payload:error.message})
   }
 };
+
 const logout = () => async (dispatch) => {
   dispatch({ type: types.LOGOUT });
   sessionStorage.removeItem("token");
