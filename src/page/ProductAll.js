@@ -18,7 +18,7 @@ const ProductAll = () => {
     <>
       {
         loading ?
-          (<div className='loading' > <ClipLoader color="#FB6D33" loading={loading} size={100} /></div>)
+          (<div className='loading'> <ClipLoader color="#FB6D33" loading={loading} size={100} /></div>)
           :
           (
             <Container>
