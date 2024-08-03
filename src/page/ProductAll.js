@@ -9,11 +9,11 @@ import SearchBox from '../component/SearchBox';
 
 const ProductAll = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.user.loading);
+  const loading = useSelector((state) => state.product.loading);
   const { productList, totalPageNum } = useSelector((state) => state.product);
   const [query, setQuery] = useSearchParams();
   const name = query.get("name");
-
+  console.log("ll", loading)
   return (
     <>
       {
